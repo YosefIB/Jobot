@@ -1,12 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router"; 
-import "./index.css";
-
-// import Wizard from "./view/pages/wizard/Wizard.tsx";
+import { BrowserRouter, Route, Routes } from "react-router";
+import "./view/styles/style.scss";
 
 
-import JobEmployer from './view/pages/jobEmployer/JobEmployer.tsx'
 import { Provider } from 'react-redux'
 import { store } from './redux/store.ts'
 import EmployerWrapper from './view/pages/employerWrapper/EmployerWrapper.tsx'
@@ -19,8 +16,8 @@ import Home from "./view/pages/home/Home.tsx";
 import Login from "./view/pages/login/Login.tsx";
 import JobCandidate from "./view/pages/jobCandidate/JobCandidate.tsx";
 import Results from "./view/pages/results/Results.tsx";
-
-
+import { MyJobs } from "./view/pages/myJobs/MyJobs.tsx";
+import EmployerLogin from "./view/pages/employerLogin/EmployerLogin.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -34,14 +31,18 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/candidate" element={<Candidate />}>
             <Route index element={<Results />} />
             <Route path="job-candidate/:jobId" element={<JobCandidate />} />
+            <Route path="my-jobs" element={<MyJobs />} />
             <Route path=":userId" element={<Results />} />
+            <Route path="job-application/:user-jobId" element={<JobApplication />} />
+            <Route path="chat/:jobId" element={<Chat />} />
           </Route>
+          <Route path="employer/login" element={<EmployerLogin />} />
           <Route path="employer" element={<EmployerWrapper />}>
             <Route index element={<JobsEmployer />} />
-            <Route path="candidates" element={<JobCandidate/>} />
+            <Route path="candidates" element={<JobCandidate />} />
             <Route path="applications" element={<JobApplication />} />
             <Route path="applications/status" element={<ApplicationStatus />} />
-            <Route path="chat" element={<Chat />} />
+            <Route path="chat/:candidateId" element={<Chat />} />
           </Route>
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
